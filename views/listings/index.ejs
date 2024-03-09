@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zomato</title>
-</head>
-<body>
-    
+  </head>
+  <body>
     <!-- <div className="flex mt-0 w-full h-full justify-between items-center text-center">
         <div className="navlogo">
           <img
@@ -41,14 +40,10 @@
           <button>Sign up</button>
         </div>
       </div> -->
-<ul>
-
-  <% for( let listing of allListings) { %>
-    <li> <a href="/listings/<%= listing._id %>"><%= listing.title %></li></a>
-    <% } %>
-    
-  </ul>
-
-
-</body>
+    <ul>
+      <% for( let listing of allListings) { %>
+      <li><a href="/listings/<%= listing._id %>"><%= listing.title %></a></li>
+      <% } %>
+    </ul>
+  </body>
 </html>
