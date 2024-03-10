@@ -24,7 +24,7 @@ app.set("view engine", "ejs");
 app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "/public")))
+app.use(express.static(path.join(__dirname, "/public")));
 app.get("/", async (req, res) => {
   const allListings = await Listing.find({});
   res.render("./listings/index.ejs", { allListings });
@@ -41,6 +41,13 @@ app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("./listings/show.ejs", { listing });
+});
+
+// search route
+app.get("/title/:title", async (req, res) => {
+  const regex = new RegExp(`^${req.params.title}`, "i");
+  const allTitle = await Listing.find({ title: regex });
+  res.json(allTitle);
 });
 
 app.listen(8080, () => {

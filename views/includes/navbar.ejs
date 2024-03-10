@@ -1,71 +1,140 @@
-
 <div class="container">
-
-    <nav class="navbar navbar-expand-lg bg-body-white">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-      <img
-      src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
-      alt="Bootstrap"
-      width="130"
-      height="25"
-      />
-    </a>
-    
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse ms-3 border rounded" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-       
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >
-            Kolkata
-          </a>
-          <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Detect current location</a></li>
-          </ul>
-        </li>
-    </ul>
-    
-    
-    <form class="d-flex ms-8" role="search">
-        <input
-        class="form-control me-2"
-        type="search"
-          placeholder="Search"
-          aria-label="Search"
+  <nav class="navbar navbar-expand-lg bg-body-white">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+          alt="Bootstrap"
+          width="130"
+          height="25"
         />
-        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-      </form>
-      
-    </div>
+      </a>
 
-    <ul class="navbar-nav mb-2 mb-lg-0">
-    
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse shadow-sm navbar-collapse py-2 ms-3 border border-light-subtle rounded"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Kolkata
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i
+                    class="fa-solid fa-location-crosshairs"
+                    style="color: #ff7e8b"
+                  ></i>
+                  Detect current location</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <i
+          class="fa-solid fa-magnifying-glass"
+          style="color: rgb(133, 132, 132)"
+        ></i>
+        <form class="d-flex w-100 ms-2" role="search">
+          <input
+            id="searchInput"
+            class="form-control border-0 me-2"
+            type="search"
+            placeholder="Search for restaurant, cuisine or a dish"
+            aria-label="Search"
+          />
+          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+        </form>
+      </div>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link" href="#">Log in</a>
-          </li>
-          
-          <li class="nav-item">
-              <a class="nav-link" href="#">Sign up</a>
-          </li>
-      </ul>
-</div>
-</nav>
+          <a class="nav-link" href="#">Log in</a>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sign up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </div>
+
+<div class="item-box">
+
+
+  <div class="item">
+    <img
+      src="https://b.zmtcdn.com/data/pictures/1/20479201/52575b5176541fbb90e11ccdd2122b8d_o2_featured_v2.jpg?fit=around%7C108%3A108&crop=108%3A108%3B%2A%2C%2A"
+      alt=""
+    />
+    <div class="text-box">
+      <h5>`${item.title}`</h5>
+      <p>`${item.description}`</p>
+      <p>location</p>
+    </div>
+  </div>
+
+  
+  
+</div>
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Your Search</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"
+  integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+
+<script>
+  const input = document.querySelector("#searchInput");
+
+  let clutter = "";
+
+  input.addEventListener("input", () => {
+    axios.get(`/title/${input.value}`).then((data) => {
+      data.data.forEach((item) => {
+        clutter += `<div class="item-box">
+          <div class="item">
+            <img src=${item.image} alt="">
+            <h4>${item.title}</h4>
+            <p>${item.description}</p>
+          </div>
+        </div>`;
+
+        console.log(item);
+      });
+    });
+  });
+</script>
