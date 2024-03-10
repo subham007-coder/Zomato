@@ -61,7 +61,6 @@
             placeholder="Search for restaurant, cuisine or a dish"
             aria-label="Search"
           />
-          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
         </form>
       </div>
 
@@ -79,36 +78,8 @@
 </div>
 
 <div class="item-box">
-
-
-  <div class="item">
-    <img
-      src="https://b.zmtcdn.com/data/pictures/1/20479201/52575b5176541fbb90e11ccdd2122b8d_o2_featured_v2.jpg?fit=around%7C108%3A108&crop=108%3A108%3B%2A%2C%2A"
-      alt=""
-    />
-    <div class="text-box">
-      <h5>`${item.title}`</h5>
-      <p>`${item.description}`</p>
-      <p>location</p>
-    </div>
-  </div>
-
-  
   
 </div>
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Your Search</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"
@@ -118,23 +89,35 @@
 ></script>
 
 <script>
+  const itemBox = document.querySelector(".item-box");
+
   const input = document.querySelector("#searchInput");
 
   let clutter = "";
 
   input.addEventListener("input", () => {
-    axios.get(`/title/${input.value}`).then((data) => {
-      data.data.forEach((item) => {
-        clutter += `<div class="item-box">
-          <div class="item">
-            <img src=${item.image} alt="">
-            <h4>${item.title}</h4>
-            <p>${item.description}</p>
-          </div>
-        </div>`;
+    axios.get(`/title/${input.value}`).then(function (data) {
 
-        console.log(item);
-      });
+      setInterval(() => {
+          clutter = "";
+      }, 700);
+
+      data.data.forEach((item) => {
+        itemBox.style.visibility = "visible";
+        clutter += `<div class="item">
+            <img
+            src=${item.image}
+            alt=""
+            />
+            <div class="text-box">
+              <h5>${item.title}</h5>
+              <p>${item.location}</p>
+              <p>${item.time}</p>
+              </div>
+              </div>`;
+            });
+            itemBox.innerHTML = clutter;
+            console.log(clutter);
     });
   });
 </script>
