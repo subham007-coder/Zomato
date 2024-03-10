@@ -57,5 +57,10 @@ body {
 
 .item-box .item img {
   width: 80px;
+  height: 50px;
   border-radius: 10px;
+}
+
+.container .navbar{
+  border-bottom: 1px solid rgba(128, 128, 128, 0.292);
 }
