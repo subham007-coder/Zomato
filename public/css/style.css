@@ -28,6 +28,7 @@ body {
   overflow-y: auto;
   gap: 10px;
   visibility: hidden;
+  background-color: rgba(240, 248, 255, 0.993);
 }
 
 .item-box .item {
@@ -41,11 +42,11 @@ body {
   gap: 10px;
 }
 
-.item-box .item:hover{
-    background-color: rgba(205, 198, 198, 0.174);
+.item-box .item:hover {
+  background-color: rgba(205, 198, 198, 0.237);
 }
 
-.item-box .item .text-box{
+.item-box .item .text-box {
   line-height: 8px;
   display: flex;
   /* background-color: aqua; */
@@ -61,6 +62,54 @@ body {
   border-radius: 10px;
 }
 
-.container .navbar{
-  border-bottom: 1px solid rgba(128, 128, 128, 0.292);
+.navbar-nav {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row !important;
+  /* gap: 10px; */
+}
+
+.navbar-nav .nav-item {
+  width: 100px;
+}
+
+.navbar-nav .dropdown-menu {
+  text-align: center;
+  width: 205px;
+}
+
+.navbar-nav .dropdown-menu li .dropdown-item {
+  padding: 0;
+}
+
+footer {
+  background-color: rgba(197, 199, 200, 0.094);
+}
+
+.f-box{
+  width: 1131px;
+}
+
+/* footer .f-info .f-heder img{
+  width: ;
+} */
+
+/* card */
+.card{
+  border: none !important;
+  margin-bottom: 2rem;
+}
+.card-img-top{
+  width: 100% !important;
+  object-fit: cover !important;
+  border-radius: 1rem !important;
+}
+
+.card-body{
+  padding: 0 !important;
+}
+
+.card-text p{
+  font-weight: 400 !important;
 }
