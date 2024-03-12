@@ -97,9 +97,8 @@
 
   input.addEventListener("input", () => {
     axios.get(`/title/${input.value}`).then(function (data) {
-
       setInterval(() => {
-          clutter = "";
+        clutter = "";
       }, 700);
 
       data.data.forEach((item) => {
@@ -115,9 +114,9 @@
               <p>${item.time}</p>
               </div>
               </div>`;
-            });
-            itemBox.innerHTML = clutter;
-            console.log(clutter);
+      });
+      itemBox.innerHTML = clutter;
+      console.log(clutter);
     });
   });
 </script>

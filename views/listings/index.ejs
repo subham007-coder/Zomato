@@ -1,28 +1,31 @@
 <% layout('/layouts/boilerplate.ejs') %>
-  <body>
+<body>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for( let listing of allListings) { %>
+      <a href="/listings/<%= listing._id %>" class="listing-link mb-3">
+    <div class="card col">
+      <img
+        src="<%= listing.image %>"
+        class="card-img-top mt-2 mb-3"
+        style="height: 15rem"
+        alt="img"
+      />
 
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-
-      <% for( let listing of allListings) { %>
-        <div class="card col" style="width: 18rem;">
-          <img src="<%= listing.image %>" class="card-img-top" alt="img">
       <div class="card-body d-flex gap-5">
-        
         <div class="title d-flex row">
           <h6 class="card-text fs-6"><%= listing.title %></h6>
-          <p class="card-text"><%= listing.location %></p>
+          <p class="card-text text-secondary"><%= listing.location %></p>
         </div>
-        
+
         <div class="title d-flex row">
-          <p class="card-text">₹ <%= listing.price.toLocaleString("en-IN") %></p>
-          <p class="card-text"><%= listing.time %></p>
+          <p class="card-text text-end text-secondary">
+            ₹<%= listing.price.toLocaleString("en-IN") %> for one
+          </p>
+          <p class="card-text text-end"><%= listing.time %></p>
         </div>
-
-
       </div>
-      
     </div>
+  </a>
     <% } %>
-    
   </div>
-  </body>
+</body>
