@@ -14,6 +14,14 @@ const listingsSchema = new Schema({
     type: String,
     required: true,
   },
+  image2: {
+    type: String,
+    // required: true,
+  },
+  image3: {
+    type: String,
+    // required: true,
+  },
   time: {
     type: String,
     required: true,

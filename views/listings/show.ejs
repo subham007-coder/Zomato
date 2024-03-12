@@ -1,9 +1,24 @@
 <% layout('/layouts/boilerplate.ejs') %>
 <body>
-  <li><%= listing.title %></li>
-  <li><%= listing.description %></li>
-  <img src="<%= listing.image %>" alt="" />
-  <li><%= listing.time %></li>
-  <li>₹ <%= listing.price.toLocaleString("en-IN") %></li>
-  <li><%= listing.location %></li>
-</body>
+  <div class="hedder-box d-flex">
+    <div class="top-img">
+      <img class="bgiImg" src="<%= listing.image %>" alt="" />
+    </div>
+    <div class="img-box d-flex ms-2 gap-2">
+
+      <div class="sub-img1">
+        <img class="subimg" src="<%= listing.image2 %>" alt="" />
+      </div>
+
+      <div class="sub-img2">
+        <img class="subimg" src="<%= listing.image3 %>" alt="" />
+      </div>
+    </div>
+  </div>
+  <div class="text">
+    <h1><%= listing.title %></h1>
+    <p class="text-secondary"><%= listing.description %></p>
+    <p class="text-secondary"><%= listing.location %></p>
+  </div>
+  </body>
+
