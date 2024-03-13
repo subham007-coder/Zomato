@@ -16,11 +16,11 @@ const listingsSchema = new Schema({
   },
   image2: {
     type: String,
-    // required: true,
+    required: true,
   },
   image3: {
     type: String,
-    // required: true,
+    required: true,
   },
   time: {
     type: String,

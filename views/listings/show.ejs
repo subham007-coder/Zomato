@@ -5,7 +5,6 @@
       <img class="bgiImg" src="<%= listing.image %>" alt="" />
     </div>
     <div class="img-box d-flex ms-2 gap-2">
-
       <div class="sub-img1">
         <img class="subimg" src="<%= listing.image2 %>" alt="" />
       </div>
@@ -15,10 +14,37 @@
       </div>
     </div>
   </div>
-  <div class="text">
+  <div class="text mb-1">
     <h1><%= listing.title %></h1>
     <p class="text-secondary"><%= listing.description %></p>
     <p class="text-secondary"><%= listing.location %></p>
   </div>
-  </body>
+  <div class="buttons mb-3">
 
+    <button type="button" class="add-cart btn btn-outline-info">
+      <i class="fa-solid fa-cart-plus"></i> ADD TO CART
+    </button>
+
+    <button type="button" class="btn btn-outline-danger">
+      <i class="fa-solid fa-shop"></i> BUY NOW
+    </button>
+  </div>
+
+  <!-- <div class="loader"></div> -->
+
+  <script>
+    // cart add
+    let addIcon = document.querySelector(".fa-cart-plus");
+    let addCart = document.querySelector(".add-cart");
+
+    addCart.addEventListener("click", () => {
+      addIcon.classList.remove("fa-cart-plus");
+      addIcon.classList.add("fa-circle-check");
+
+      addCart.classList.remove("btn-outline-info");
+      addCart.classList.add("btn-success");
+    });
+
+    // <i class="fa-solid fa-circle-check"></i>
+  </script>
+</body>
