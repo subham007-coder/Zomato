@@ -76,22 +76,34 @@
     </div>
 
 
-    <button type="button" class="btn btn-white position-relative">
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="btn btn-white position-relative">
 
       <i class="fa-solid fa-cart-shopping"></i>
   
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success visually-hidden">
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill noti bg-success visually-hidden">
         
         <span class="visually-hidden">unread messages</span>
       </span>
     </button>
-
 
   </nav>
 </div>
 
 <div class="item-box">
   <!-- go to show route -->
+</div>
+
+
+ <!-- for open orderlist -->
+
+ <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- orderItems -->
+  </div>
 </div>
 
 <script
@@ -101,35 +113,22 @@
   referrerpolicy="no-referrer"
 ></script>
 
-<script>
-  const itemBox = document.querySelector(".item-box");
 
-  const input = document.querySelector("#searchInput");
 
-  let clutter = "";
 
-  input.addEventListener("input", () => {
-    axios.get(`/title/${input.value}`).then(function (data) {
-      setInterval(() => {
-        clutter = "";
-      }, 700);
 
-      data.data.forEach((item) => {
-        itemBox.style.visibility = "visible";
-        clutter += `<div class="item">
-            <img
-            src=${item.image}
-            alt=""
-            />
-            <div class="text-box">
-              <h5>${item.title}</h5>
-              <p>${item.location}</p>
-              <p>${item.time}</p>
-              </div>
-              </div>`;
-      });
-      itemBox.innerHTML = clutter;
-      console.log(clutter);
-    });
-  });
-</script>
+
+
+<!-- for open orderlist -->
+
+<!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    ...
+  </div>
+</div> -->
