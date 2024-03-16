@@ -47,3 +47,11 @@ addCart.addEventListener("click", () => {
   notifications.classList.remove("visually-hidden");
   notifications.innerHTML = counter;
 });
+
+// a tag in add to cart
+
+let addA = document.querySelector(".target-button");
+
+addA.addEventListener("click", (e) => {
+  e.preventDefault()
+})
