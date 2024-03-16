@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const Cart = require("./models/cart.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/Zomato";
 
@@ -50,6 +51,26 @@ app.get("/title/:title", async (req, res) => {
   const regex = new RegExp(`^${req.params.title}`, "i");
   const allTitle = await Listing.find({ title: regex });
   res.json(allTitle);
+});
+
+// add to cart
+app.get("/listings/:id/cart", async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+
+  let newCart = new Cart(req.body.cart);
+
+  listing.cart.push(newCart);
+  // listing.cart.push(newCart);
+  // listing.cart.push(newCart);
+
+  const allListings = await Cart.find({});
+
+  console.log(allListings);
+
+  await newCart.save();
+  await listing.save();
+  console.log("new cart save");
+  console.log(newCart);
 });
 
 app.listen(8080, () => {

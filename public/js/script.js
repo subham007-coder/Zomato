@@ -50,8 +50,8 @@ addCart.addEventListener("click", () => {
 
 // a tag in add to cart
 
-let addA = document.querySelector(".target-button");
+// let addA = document.querySelector(".target-button");
 
-addA.addEventListener("click", (e) => {
-  e.preventDefault()
-})
+// addA.addEventListener("click", (e) => {
+//   e.preventDefault()
+// })

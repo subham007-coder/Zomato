@@ -34,6 +34,12 @@ const listingsSchema = new Schema({
     type: String,
     required: true,
   },
+  cart: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Cart"
+    }
+  ]
 });
 
 const Listings = mongoose.model("listing", listingsSchema);
