@@ -60,17 +60,12 @@ app.get("/listings/:id/cart", async (req, res) => {
   let newCart = new Cart(req.body.cart);
 
   listing.cart.push(newCart);
-  // listing.cart.push(newCart);
-  // listing.cart.push(newCart);
-
-  const allListings = await Cart.find({});
-
-  console.log(allListings);
 
   await newCart.save();
   await listing.save();
   console.log("new cart save");
   console.log(newCart);
+  console.log(listing.image);
 });
 
 app.listen(8080, () => {
