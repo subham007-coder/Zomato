@@ -21,11 +21,11 @@
   </div>
   <div class="buttons mb-3">
 
-    <a href="/listings/<%= listing._id %>/cart" class="target-button">
-    <button type="button" class="add-cart btn btn-outline-info">
+    <form action="/listings/<%= listing.id %>/cart" method="POST" class="target-button">
+    <button type="submit" class="add-cart btn btn-outline-info">
       <i class="fa-solid fa-cart-plus"></i> ADD TO CART
     </button>
-  </a>
+  </form>
 
     <button type="button" class="btn btn-outline-danger">
       <i class="fa-solid fa-shop"></i> BUY NOW
@@ -42,16 +42,9 @@
   <div class="offcanvas-body">
     <!-- orderItems -->
     
-      <!-- <div class="item d-flex gap-2">
-        <img width="120" class="border rounded"
-        src="<%= listing.image %>"
-        alt=""
-        />
-        <div class="text-box">
-          <h5><%= listing.title %></h5>
-          <p><%= listing.price %></p>
+      <div class="item d-flex gap-2">
+        <p><%= listing.cart %></p>
           </div>
-          </div> -->
       
     
   </div>

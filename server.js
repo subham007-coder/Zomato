@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const methodOverride = require('method-override')
 const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
 const path = require("path");
@@ -20,12 +21,13 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-// set the view engine to ejs
+// set the view engine to ejs middleware
 app.set("view engine", "ejs");
 app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(methodOverride("_method"));
 
 // home route
 app.get("/", async (req, res) => {
@@ -54,18 +56,16 @@ app.get("/title/:title", async (req, res) => {
 });
 
 // add to cart
-app.get("/listings/:id/cart", async (req, res) => {
+app.post("/listings/:id/cart", async (req, res) => {
   let listing = await Listing.findById(req.params.id);
-
   let newCart = new Cart(req.body.cart);
 
   listing.cart.push(newCart);
 
   await newCart.save();
   await listing.save();
+
   console.log("new cart save");
-  console.log(newCart);
-  console.log(listing.image);
 });
 
 app.listen(8080, () => {
