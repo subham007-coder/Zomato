@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const cartSchema = new Schema({
-  productId: {
-    type: String,
+  title: {
+    type: Schema.Types.ObjectId,
+    ref: "listing"
   },
   createdAt: {
     type: Date,

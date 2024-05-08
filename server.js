@@ -44,7 +44,7 @@ app.get("/listings", async (req, res) => {
 //show route
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id);
+  const listing = await Listing.findById(id).populate("cart");
   res.render("./listings/show.ejs", { listing });
 });
 
@@ -60,12 +60,14 @@ app.post("/listings/:id/cart", async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newCart = new Cart(req.body.cart);
 
-  listing.cart.push(newCart);
+ let val =  listing.cart.push(newCart);
 
   await newCart.save();
   await listing.save();
 
-  console.log("new cart save");
+  console.log("new cart save cart", newCart);
+  console.log("new cart save listing", listing);
+  console.log("value", val);
 });
 
 app.listen(8080, () => {

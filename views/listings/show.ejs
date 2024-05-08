@@ -19,13 +19,16 @@
     <p class="text-secondary"><%= listing.description %></p>
     <p class="text-secondary"><%= listing.location %></p>
   </div>
-  <div class="buttons mb-3">
-
-    <form action="/listings/<%= listing.id %>/cart" method="POST" class="target-button">
-    <button type="submit" class="add-cart btn btn-outline-info">
-      <i class="fa-solid fa-cart-plus"></i> ADD TO CART
-    </button>
-  </form>
+  <div class="buttons mb-3 d-flex gap-2">
+    <form
+      action="/listings/<%= listing.id %>/cart"
+      method="POST"
+      class="target-button"
+    >
+      <button type="submit" class="add-cart btn btn-outline-info">
+        <i class="fa-solid fa-cart-plus"></i> ADD TO CART
+      </button>
+    </form>
 
     <button type="button" class="btn btn-outline-danger">
       <i class="fa-solid fa-shop"></i> BUY NOW
@@ -34,22 +37,29 @@
 
   <!-- for open orderlist -->
 
- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <!-- orderItems -->
-    
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- orderItems -->
+
       <div class="item d-flex gap-2">
         <p><%= listing.cart %></p>
-          </div>
-      
-    
+      </div>
+    </div>
   </div>
-</div>
-
 
   <!-- <div class="loader"></div> -->
 </body>
