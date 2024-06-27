@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const Cart = require("./models/cart.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/Zomato";
@@ -29,23 +31,45 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));
 
+app.use(session({
+  secret: 'yourSecretKey', // Replace with a secure secret key
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: MONGO_URL,
+    touchAfter: 24 * 3600 // time period in seconds
+  })
+}));
+
+// Middleware to initialize cart in session
+app.use((req, res, next) => {
+  if (!req.session.cart) {
+    req.session.cart = { items: [], totalPrice: 0 };
+  }
+  next();
+});
+
 // home route
 app.get("/", async (req, res) => {
   const allListings = await Listing.find({});
-  res.render("./listings/index.ejs", { allListings });
+  const cart = req.session.cart; // Retrieve cart from session
+  res.render("./listings/index.ejs", { allListings, cart });
 });
 
 // index route
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find({});
-  res.render("./listings/index.ejs", { allListings });
+  const cart = req.session.cart; // Retrieve cart from session
+  res.render("./listings/index.ejs", { allListings, cart });
 });
 
-//show route
+
+// show route
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id).populate("cart");
-  res.render("./listings/show.ejs", { listing });
+  const listing = await Listing.findById(id);
+  const cart = req.session.cart;
+  res.render("./listings/show.ejs", { listing, cart });
 });
 
 // search route
@@ -55,21 +79,46 @@ app.get("/title/:title", async (req, res) => {
   res.json(allTitle);
 });
 
-// add to cart
+// add to cart route
 app.post("/listings/:id/cart", async (req, res) => {
-  let listing = await Listing.findById(req.params.id);
-  let newCart = new Cart(req.body.cart);
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+  const cart = req.session.cart;
 
-  let val = listing.cart.push(newCart);
+  const itemIndex = cart.items.findIndex(item => item.listingId.toString() === id);
 
-  await newCart.save();
-  await listing.save();
+  if (itemIndex > -1) {
+    cart.items[itemIndex].quantity += 1;
+  } else {
+    cart.items.push({ 
+      listingId: id, 
+      title: listing.title, 
+      price: listing.price, 
+      image: listing.image, // Store the image URL
+      quantity: 1 
+    });
+  }
+  
+  cart.totalPrice += listing.price;
+  req.session.cart = cart;
 
-  console.log("new cart save cart", newCart);
-  console.log("new cart save listing", listing);
-  console.log("value", val);
+  res.redirect(`/listings/${id}`);
+});
 
-  res.render("./listings/show.ejs", { listing });
+// remove item from cart route
+app.post("/cart/remove", (req, res) => {
+  const { listingId } = req.body;
+  const cart = req.session.cart;
+  
+  const itemIndex = cart.items.findIndex(item => item.listingId.toString() === listingId);
+
+  if (itemIndex > -1) {
+    cart.totalPrice -= cart.items[itemIndex].price * cart.items[itemIndex].quantity;
+    cart.items.splice(itemIndex, 1);
+    req.session.cart = cart;
+  }
+
+  res.redirect('back');
 });
 
 app.listen(8080, () => {

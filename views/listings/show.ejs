@@ -55,9 +55,21 @@
     <div class="offcanvas-body">
       <!-- orderItems -->
 
-      <div class="item d-flex gap-2">
-        <p><%= listing.cart %></p>
-      </div>
+      <% if (cart && cart.items.length > 0) { %>
+        <% cart.items.forEach(item => { %>
+          <div class="item d-flex gap-2 align-items-center">
+            <img src="<%= item.image %>" alt="<%= item.title %>" style="width: 50px; height: auto;" class="cart-item-img">
+            <p><%= item.title %> - Quantity: <%= item.quantity %></p>
+            <form action="/cart/remove" method="POST">
+              <input type="hidden" name="listingId" value="<%= item.listingId %>">
+              <button type="submit" class="btn btn-outline-danger">Remove</button>
+            </form>
+          </div>
+        <% }) %>
+        <h3>Total: <%= cart.totalPrice %></h3>
+      <% } else { %>
+        <p>Your cart is empty.</p>
+      <% } %>
     </div>
   </div>
 

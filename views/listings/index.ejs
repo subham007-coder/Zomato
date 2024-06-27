@@ -1,60 +1,60 @@
 <% layout('/layouts/boilerplate.ejs') %>
+
 <body>
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for( let listing of allListings) { %>
-    <a href="/listings/<%= listing._id %>" class="listing-link mb-3">
-      <div class="card col">
-        <img
-          src="<%= listing.image %>"
-          class="card-img-top mt-2 mb-3"
-          style="height: 15rem"
-          alt="img"
-        />
+    <% for(let listing of allListings) { %>
+      <a href="/listings/<%= listing._id %>" class="listing-link mb-3">
+        <div class="card col">
+          <img
+            src="<%= listing.image %>"
+            class="card-img-top mt-2 mb-3"
+            style="height: 15rem"
+            alt="Listing Image"
+          />
 
-        <div class="card-body d-flex gap-5">
-          <div class="title d-flex row">
-            <h6 class="card-text fs-6"><%= listing.title %></h6>
+          <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
             <p class="card-text text-secondary"><%= listing.location %></p>
-          </div>
-
-          <div class="title d-flex row">
-            <p class="card-text text-end text-secondary">
-              ₹<%= listing.price.toLocaleString("en-IN") %> for one
-            </p>
-            <p class="card-text text-end"><%= listing.time %></p>
+            <p class="card-text">Price: ₹<%= listing.price.toLocaleString("en-IN") %> for one</p>
+            <p class="card-text">Time: <%= listing.time %></p>
           </div>
         </div>
-      </div>
-    </a>
-    
-
-
-     <!-- for open orderlist -->
-
-  <div
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  id="offcanvasRight"
-  aria-labelledby="offcanvasRightLabel"
->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
+      </a>
+    <% } %>
   </div>
-  <div class="offcanvas-body">
-    <!-- orderItems -->
 
-    <div class="item d-flex gap-2">
-      <p><%= listing.cart %></p>
+  <!-- Cart offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <% if (cart && cart.items.length > 0) { %>
+        <% cart.items.forEach(item => { %>
+          <div class="item d-flex gap-2 align-items-center">
+            <img src="<%= item.image %>" alt="<%= item.title %>" style="width: 50px; height: auto;" class="cart-item-img">
+            <p><%= item.title %> - Quantity: <%= item.quantity %></p>
+            <form action="/cart/remove" method="POST">
+              <input type="hidden" name="listingId" value="<%= item.listingId %>">
+              <button type="submit" class="btn btn-outline-danger">Remove</button>
+            </form>
+          </div>
+        <% }) %>
+        <h3>Total: <%= cart.totalPrice %></h3>
+      <% } else { %>
+        <p>Your cart is empty.</p>
+      <% } %>
     </div>
   </div>
-</div>
-<% } %>
 
-  </div>
+
+  <!-- Cart icon with badge -->
+  <!-- <div class="cart-icon">
+    <a href="#offcanvasRight" class="btn btn-outline-info" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasRight">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cart-count"><%= cart ? cart.items.length : 0 %></span>
+    </a>
+  </div> -->
+
 </body>
