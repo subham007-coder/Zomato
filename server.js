@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const methodOverride = require('method-override')
+const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
 const path = require("path");
@@ -60,7 +60,7 @@ app.post("/listings/:id/cart", async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newCart = new Cart(req.body.cart);
 
- let val =  listing.cart.push(newCart);
+  let val = listing.cart.push(newCart);
 
   await newCart.save();
   await listing.save();
@@ -68,6 +68,8 @@ app.post("/listings/:id/cart", async (req, res) => {
   console.log("new cart save cart", newCart);
   console.log("new cart save listing", listing);
   console.log("value", val);
+
+  res.render("./listings/show.ejs", { listing });
 });
 
 app.listen(8080, () => {
