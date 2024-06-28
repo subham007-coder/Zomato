@@ -98,7 +98,7 @@ app.post("/listings/:id/cart", async (req, res) => {
       quantity: 1 
     });
   }
-  
+
   cart.totalPrice += listing.price;
   req.session.cart = cart;
 
