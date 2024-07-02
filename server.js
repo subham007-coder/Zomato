@@ -90,12 +90,12 @@ app.post("/listings/:id/cart", async (req, res) => {
   if (itemIndex > -1) {
     cart.items[itemIndex].quantity += 1;
   } else {
-    cart.items.push({ 
-      listingId: id, 
+    cart.items.push({
+      listingId: id,
       title: listing.title, 
       price: listing.price, 
       image: listing.image, // Store the image URL
-      quantity: 1 
+      quantity: 1
     });
   }
 
